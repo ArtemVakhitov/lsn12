@@ -1,30 +1,30 @@
 ---
-version: '3'
 services:
 
-    tomcat:
-        image: tomcat:8-alpine
-        restart: on-failure
-        ports:
-          - "8080:8080"
-        volumes:
-          - type: volume
-            source: webapps
-            target: /usr/local/tomcat/webapps
-
     build:
-        depends_on:
-          - tomcat
         build:
             context: .
             dockerfile: Dockerfile
         volumes:
-          - type: volume
-            source: webapps
-            target: /build/webapps
+          - type: bind
+            source: ./build
+            target: /build
         secrets:
           - db_root_password
-          
+
+
+    tomcat:
+        image: tomcat:8-alpine
+        depends_on:
+          - build
+        restart: on-failure
+        ports:
+          - "8080:8080"
+        volumes:
+          - type: bind
+            source: ./build/lsn12_new/target/App42PaaS-Java-MySQL-Sample-0.0.1-SNAPSHOT.war
+            target: /usr/local/tomcat/webapps/App42PaaS-Java-MySQL-Sample-0.0.1-SNAPSHOT.war
+
     mysql:
         image: mysql:8-debian
         command: --default-authentication-plugin=mysql_native_password
