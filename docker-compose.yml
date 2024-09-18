@@ -14,7 +14,7 @@ services:
           - db_root_password
           
     tomcat:
-        image: tomcat:8-alpine
+        image: andreptb/tomcat:6.0.53-jdk6
         restart: on-failure
         ports:
           - "8080:8080"

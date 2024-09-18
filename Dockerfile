@@ -1,4 +1,4 @@
-FROM maven:3.6-jdk-8-alpine
+FROM andreptb/maven:3.2.5-jdk6-alpine
 WORKDIR /build
 RUN apk update && apk add git
 RUN mkdir -p /build/webapps
