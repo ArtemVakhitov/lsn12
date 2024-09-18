@@ -1,29 +1,32 @@
 ---
-version: '3'
 services:
 
-    tomcat:
-        image: tomcat:8-alpine
-        restart: on-failure
-        ports:
-          - "8080:8080"
-        volumes:
-          - type: volume
-            source: webapps
-            target: /usr/local/tomcat/webapps
-
     build:
-        depends_on:
-          - tomcat
         build:
             context: .
             dockerfile: Dockerfile
         volumes:
           - type: volume
-            source: webapps
-            target: /build/webapps
+            source: src
+            target: /src
         secrets:
           - db_root_password
+
+
+    tomcat:
+        depends_on:
+          - build
+        build:
+            context: .
+            dockerfile: tomcat.Dockerfile
+        restart: on-failure
+        ports:
+          - "8080:8080"
+        volumes:
+          - type: volume
+            source: src
+            target: /src
+
           
     mysql:
         image: mysql:8-debian
@@ -43,7 +46,7 @@ services:
           - db_root_password
 
 volumes:
-    webapps:
+    src:
     mysql:
 
 secrets:
