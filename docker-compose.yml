@@ -47,6 +47,7 @@ services:
 
 volumes:
     src:
+      external: true
     mysql:
 
 secrets:
