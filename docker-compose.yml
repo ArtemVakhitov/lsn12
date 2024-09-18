@@ -17,7 +17,6 @@ services:
         image: tomcat:8-alpine
         depends_on:
           - build
-        command: cp /src/lsn12_new/target/App42PaaS-Java-MySQL-Sample-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/ ; sleep infinity &
         restart: on-failure
         ports:
           - "8080:8080"
