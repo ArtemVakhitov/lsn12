@@ -7,8 +7,6 @@ services:
         restart: on-failure
         ports:
           - "8080:8080"
-          - "3306:3306"
-          - "33060:33060"
         volumes:
           - type: volume
             source: webapps
