@@ -5,7 +5,10 @@ services:
     tomcat:
         image: tomcat:8-alpine
         environment:
-          - CATALINA_BASE=/usr/local/tomcat
+          DB_USERNAME: shephertz
+          DB_PASSWORD: secret
+          DB_IP: mysql
+          DB_NAME: app42paas
         restart: on-failure
         ports:
           - "8080:8080"
