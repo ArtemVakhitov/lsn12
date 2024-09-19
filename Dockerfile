@@ -1,8 +1,5 @@
-FROM maven:3.6-jdk-8-alpine
-WORKDIR /build
-RUN apk update && apk add git
-RUN mkdir -p /build/webapps
+FROM tomcat:8-alpine
+RUN apk update && apk add git maven
 RUN git clone https://github.com/ArtemVakhitov/lsn12_new.git
-WORKDIR /build/lsn12_new
-# RUN echo "app42.paas.db.password = $(cat /run/secrets/db_root_password)" >> WebContent/Config.properties
-RUN mvn clean && mvn install && cp target/App42PaaS-Java-MySQL-Sample-0.0.1-SNAPSHOT.war ../webapps/ 
+WORKDIR lsn12_new
+RUN mvn clean && mvn install && cp target/App42PaaS-Java-MySQL-Sample-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/ 

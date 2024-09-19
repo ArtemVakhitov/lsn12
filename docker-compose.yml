@@ -3,7 +3,9 @@ version: '3'
 services:
 
     tomcat:
-        image: tomcat:8-alpine
+        build:
+            context: .
+            dockerfile: Dockerfile
         environment:
           DB_USERNAME: shephertz
           DB_PASSWORD: secret
@@ -12,23 +14,6 @@ services:
         restart: on-failure
         ports:
           - "8080:8080"
-        volumes:
-          - type: volume
-            source: webapps
-            target: /usr/local/tomcat/webapps
-
-    build:
-        depends_on:
-          - tomcat
-        build:
-            context: .
-            dockerfile: Dockerfile
-        volumes:
-          - type: volume
-            source: webapps
-            target: /build/webapps
-        secrets:
-          - db_root_password
           
     mysql:
         image: mysql:5.7-debian
@@ -46,13 +31,6 @@ services:
           - type: volume
             source: mysql
             target: /var/lib/mysql
-        secrets:
-          - db_root_password
 
 volumes:
-    webapps:
     mysql:
-
-secrets:
-    db_root_password:
-        file: ./db_root_password.txt
