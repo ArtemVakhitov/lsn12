@@ -4,6 +4,8 @@ services:
 
     tomcat:
         image: tomcat:8-alpine
+        environment:
+          - CATALINA_BASE=/usr/local/tomcat
         restart: on-failure
         ports:
           - "8080:8080"
