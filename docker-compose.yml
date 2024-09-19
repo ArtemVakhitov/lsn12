@@ -7,7 +7,7 @@ services:
             dockerfile: Dockerfile
         volumes:
           - type: bind
-            source: ./build
+            source: /home/student/build
             target: /build
         secrets:
           - db_root_password
@@ -22,7 +22,7 @@ services:
           - "8080:8080"
         volumes:
           - type: bind
-            source: ./build/lsn12_new/target/App42PaaS-Java-MySQL-Sample-0.0.1-SNAPSHOT.war
+            source: /home/student/build/lsn12_new/target/App42PaaS-Java-MySQL-Sample-0.0.1-SNAPSHOT.war
             target: /usr/local/tomcat/webapps/App42PaaS-Java-MySQL-Sample-0.0.1-SNAPSHOT.war
 
     mysql:
