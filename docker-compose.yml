@@ -35,8 +35,10 @@ services:
           - "33060:33060"
         restart: always
         environment:
-            MYSQL_ROOT_PASSWORD: secret
+            MYSQL_ROOT_PASSWORD: rootsecret
             MYSQL_DATABASE: app42paas
+            MYSQL_USER: shephertz
+            MYSQL_PASSWORD: secret
         volumes:
           - type: volume
             source: mysql
